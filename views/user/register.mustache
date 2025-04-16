@@ -1,0 +1,12 @@
+<h2>New Admin Registration</h2>
+<form method="post" action="/register">
+  <div class="form-group mb-3">
+    <label for="username">User Name</label>
+    <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" required>
+  </div>
+  <div class="form-group mb-3">
+    <label for="pass">Password (8 characters minimum)</label>
+    <input type="password" class="form-control" id="pass" name="pass" placeholder="Enter Password" minlength="8" required>
+  </div>
+  <input type="submit" value="Register" class="btn btn-primary">
+</form>

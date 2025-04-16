@@ -1,0 +1,23 @@
+<h1>{{title}}</h1>
+
+{{#user}}
+  <a href="/new" class="btn btn-primary mb-3">
+    Write in the guestbook
+  </a>
+{{/user}}
+
+{{#entries}}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h4 class="card-title">{{subject}}</h4>
+      <p class="card-text">{{contents}}</p>
+    </div>
+    <div class="card-footer text-muted">
+      Written by <a href="/posts/{{author}}">{{author}}</a> on {{published}}
+    </div>
+  </div>
+{{/entries}}
+
+{{^entries}}
+  <p>No entries yet.</p>
+{{/entries}}

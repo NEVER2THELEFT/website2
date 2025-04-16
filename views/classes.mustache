@@ -1,0 +1,35 @@
+<div class="container mt-4">
+  <h1>{{title}}</h1>
+
+  {{#classes}}
+  <div class="row my-5 align-items-stretch">
+    <!-- Image column -->
+    <div class="col-md-4">
+      <img src="{{image_url}}" alt="{{title}}" class="img-fluid rounded shadow w-100 h-100 object-fit-cover">
+    </div>
+
+    <!-- Class info column -->
+    <div class="col-md-4">
+      <div class="p-3 bg-light rounded shadow h-100">
+        <h3>{{title}}</h3>
+        <p><strong>Description:</strong> {{description}}</p>
+        <p><strong>Duration:</strong> {{duration}}</p>
+        <p><strong>Date & Time:</strong> {{date_time}}</p>
+        <p><strong>Location:</strong> {{location}}</p>
+        <p><strong>Price(£):</strong> {{price}}</p>
+
+        <!-- Enrol form -->
+        <form action="/classes/enroll" method="POST">
+          <input type="hidden" name="classId" value="{{_id}}">
+          <div class="mb-2">
+            <input type="text" name="name" placeholder="Your name" required class="form-control">
+          </div>
+          <div class="mb-2">
+            <input type="date" name="dob" required class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary">Enroll</button>
+        </form>
+      </div>
+    </div>
+  {{/classes}}
+</div>

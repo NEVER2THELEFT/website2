@@ -1,0 +1,138 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Admin Panel</h2>
+
+  <!-- Add New User -->
+  <div class="card mb-4">
+    <div class="card-header">Add New User</div>
+    <div class="card-body">
+      <form action="/admin/add-user" method="POST">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create User</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add New Class -->
+  <div class="card mb-4">
+    <div class="card-header">Add New Class</div>
+    <div class="card-body">
+      <form action="/admin/add" method="POST">
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input type="text" class="form-control" name="title" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" name="description" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Image Filename</label>
+          <input type="text" class="form-control" name="image_url" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Duration (e.g. 1h, 90min)</label>
+          <input type="text" class="form-control" name="duration" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Date & Time</label>
+          <input type="text" class="form-control" name="date_time" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Location</label>
+          <input type="text" class="form-control" name="location" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Price (£)</label>
+          <input type="number" step="0.01" class="form-control" name="price" required>
+        </div>
+        <button type="submit" class="btn btn-success">Add Class</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Existing Classes -->
+  <div class="card mb-4">
+    <div class="card-header">Existing Classes</div>
+    <div class="card-body">
+      {{#classes}}
+        <div class="border rounded p-3 mb-4">
+          <form action="/admin/edit/{{_id}}?_method=PUT" method="POST" class="mb-3">
+            <div class="mb-2">
+              <label class="form-label">Title</label>
+              <input type="text" class="form-control" name="title" value="{{title}}" required>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Description</label>
+              <textarea class="form-control" name="description" rows="3" required>{{description}}</textarea>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Image URL</label>
+              <input type="text" class="form-control" name="image_url" value="{{image_url}}">
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Duration (e.g. 1h, 90min)</label>
+              <input type="text" class="form-control" name="duration" value="{{duration}}">
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Date & Time</label>
+              <input type="text" class="form-control" name="date_time" value="{{date_time}}">
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Location</label>
+              <input type="text" class="form-control" name="location" value="{{location}}">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Price (£)</label>
+              <input type="number" step="0.01" class="form-control" name="price" value="{{price}}">
+            </div>
+            <button type="submit" class="btn btn-warning">Update</button>
+          </form>
+          <form action="/admin/delete/{{_id}}?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this class?');">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+
+          <!-- Participants List -->
+          <h5 class="mt-4">Participants</h5>
+          <ul class="list-group">
+            {{#participants}}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Name: <strong>{{name}}</strong> DOB: {{dob}}
+                <!-- Delete Participant Button -->
+                <form action="/admin/delete-participant/{{_id}}/{{classId}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this participant?');">
+                  <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+              </li>
+            {{/participants}}
+          </ul>
+        </div>
+      {{/classes}}
+      {{^classes}}
+        <p class="text-muted">No classes yet. Use the form above to add some!</p>
+      {{/classes}}
+    </div>
+  </div>
+
+  <!-- Delete User Accounts -->
+  <h5 class="mt-4">Delete User Accounts</h5>
+  <ul class="list-group">
+    {{#users}}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Username: <strong>{{user}}</strong>
+        <!-- Delete User Button -->
+        <form action="/admin/delete-user/{{user}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
+          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        </form>
+      </li>
+    {{/users}}
+    {{^users}}
+      <p class="text-muted">No users yet.</p>
+    {{/users}}
+  </ul>
+</div>
